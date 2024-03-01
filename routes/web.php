@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin as admin;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +16,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view("welcome");
+    return view('layouts.layout');
+})->name('home');
+
+Route::get('/about', function () {
+    return 'About page.';
 });
 
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+    Route::resource('admin/products', admin\ProductController::class);
+    Route::resource('admin/users', admin\UserController::class);
+});
+
+
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('admin.dashboard');
+})->middleware(['auth', 'role:admin'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
