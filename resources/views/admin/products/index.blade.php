@@ -38,6 +38,9 @@
                 description
             </th>
             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                Price
+            </th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                 Actions
             </th>
 
@@ -57,6 +60,9 @@
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     {{ $product->description }}
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    {{ $product->price }}
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <a href="{{ route('products.show', $product->id) }}" class="text-blue-500 hover:text-blue-800">View</a>

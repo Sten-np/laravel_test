@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
+use App\Models\Price;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -50,9 +51,9 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->image = $request->image;
-        $product->save();
 
-        return redirect()->route('products.index')->with('status', 'Product created!');
+        $product->save();
+        return to_route('products.index')->with('status', 'Product created!');
     }
 
 

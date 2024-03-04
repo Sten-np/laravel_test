@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Price extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'image'];
+    protected $fillable = ['product_id', 'price'];
 
-    public function prices()
+    public function product()
     {
-        return $this->hasMany(Price::class);
+        return $this->belongsTo(Product::class);
     }
+
 
 }
