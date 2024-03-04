@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin as admin;
+use App\Http\Controllers\open as open;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.layout');
-})->name('home');
+Route::get('/', [open\homeController::class, 'index'])->name('home');
+
+Route::get('/products', [open\ProductController::class, 'index'])->name('open.products.index');
+Route::get('/products/{product}', [open\ProductController::class, 'show'])->name('open.products.show');
 
 Route::get('/about', function () {
     return 'About page.';
