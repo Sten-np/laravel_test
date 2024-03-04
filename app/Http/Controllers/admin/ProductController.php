@@ -80,11 +80,14 @@ class ProductController extends Controller
         //
     }
 
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return to_route('products.index')->with('status', 'Product deleted!');
     }
 }

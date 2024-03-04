@@ -37,6 +37,9 @@
             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                 description
             </th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                Actions
+            </th>
 
         </tr>
         </thead>
@@ -54,6 +57,15 @@
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     {{ $product->description }}
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <a href="{{ route('products.show', $product->id) }}" class="text-blue-500 hover:text-blue-800">View</a>
+                    <a href="{{ route('products.edit', $product->id) }}" class="text-blue-500 hover:text-blue-800">Edit</a>
+                    <form class="inline" action="{{ route('products.destroy', $product->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500 hover:text-red-800">Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
