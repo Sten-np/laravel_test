@@ -45,16 +45,17 @@
                    class="bg-side-nav w-1/2 md:w-1/6 lg:w-1/6 border-r border-side-nav hidden md:block lg:block">
 
                 <ul class="list-reset flex flex-col">
-                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white">
+                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300
+                    ">
                         <a href="{{ route('home') }}">Public Site</a>
                     </li>
-                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white">
+                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300">
                         <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                     </li>
-                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white">
+                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300">
                         <a href="{{ route('products.index') }}">Products</a>
                     </li>
-                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white">
+                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300">
                         <a href="{{ route('users.index') }}">Users</a>
                     </li>
                 </ul>
@@ -66,11 +67,6 @@
             </main>
             <!--/Main-->
         </div>
-        <!--Footer-->
-        <footer class="bg-grey-darkest text-white p-2">
-            <div class="flex flex-1 mx-auto">&copy; My Design</div>
-        </footer>
-        <!--/footer-->
     </div>
 
 </div>
