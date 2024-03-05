@@ -6,6 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
         .prod-card:hover {
             transform: scale(1.05);
@@ -25,6 +26,14 @@
         <div>
             <a href="{{ route('open.products.index') }}" class="text-white
             text-2xl font-bold">Products</a>
+        </div>
+
+        <div>
+            <form action="{{ route('open.products.search', ['term' => "minecraft"]) }}" method="post">
+                @csrf
+                <input type="text" name="search" placeholder="Search for products" class="rounded-lg p-2">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Search</button>
+            </form>
         </div>
 
         @hasrole('admin')

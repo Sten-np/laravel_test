@@ -20,6 +20,7 @@ Route::get('/', [open\homeController::class, 'index'])->name('home');
 
 Route::get('/products', [open\ProductController::class, 'index'])->name('open.products.index');
 Route::get('/products/{product}', [open\ProductController::class, 'show'])->name('open.products.show');
+Route::get('search/{term}', [open\ProductController::class, 'search'])->name('open.products.search');
 
 Route::get('/about', function () {
     return 'About page.';
