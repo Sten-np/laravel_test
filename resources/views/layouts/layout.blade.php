@@ -6,12 +6,13 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         .prod-card:hover {
             transform: scale(1.05);
             transition: transform 0.3s ease;
-
         }
     </style>
 </head>
@@ -29,10 +30,18 @@
         </div>
 
         <div>
+            <a href="{{ route('cart.index') }}" class="text-white
+            text-2xl font-bold">Cart</a>
+        </div>
+
+        <div>
             <form action="{{ route('open.products.search', ['term' => "minecraft"]) }}" method="post">
                 @csrf
                 <input type="text" name="search" placeholder="Search for products" class="rounded-lg p-2">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Search</button>
+                <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Search
+                </button>
             </form>
         </div>
 
@@ -59,10 +68,7 @@
                 <button class="dropdown-btn relative text-3xl"
                         style="background-color: #0d6efd; border-radius: 5px; padding: 5px;" onmouseover="dropdown()"
                         onmouseout="dropdown()">
-                    Account <span class="material-symbols-outlined">
-arrow_drop_down
-</span>
-
+                    Account <span class="material-symbols-outlined">arrow_drop_down</span>
                 </button>
                 <div id="myDropdown" class="dropdown-content absolute bg-gray-100 p-10" onmouseout="dropdown()" style="float: right; display: none;
                 border-radius: 3px;">
@@ -92,9 +98,6 @@ arrow_drop_down
     <div class="flex flex-1 mx-auto">&copy; My Design</div>
 </footer>
 </body>
-<script defer type="text/javascript">
-    function dropdown() {
-        document.getElementById('myDropdown').classList.toggle("show");
-    }
-</script>
+<script type="javascript" src="@vite('resources/js/vendor.js')"></script>
+<script type="javascript" defer src="{{ asset('js/main.js') }}"></script>
 </html>

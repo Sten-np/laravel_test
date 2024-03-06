@@ -26,9 +26,13 @@
                                         <h2 class="font-bold text-xl mb-2">{{ $product->name }}</h2>
                                         <p class="text-gray-700">&euro; {{ $product->latest_price->price }}</p>
                                     </div>
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md"><a
-                                            href="#"><span class="material-symbols-outlined">shopping_cart</span></a>
-                                    </button>
+                                        <form action="{{ route('cart.add') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                                                <span class="material-symbols-outlined">shopping_cart</span>
+                                            </button>
+                                        </form>
                                 </div>
                             </div>
                         </div>

@@ -70,7 +70,8 @@
     </div>
 
 </div>
-<script src="{{ asset('js/main.js') }}"></script>
 </body>
+<script src="@vite('resources/js/vendor.js')"></script>
+<script defer src="{{ asset('js/main.js') }}"></script>
 
 </html>

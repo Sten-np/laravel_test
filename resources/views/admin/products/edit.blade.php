@@ -57,11 +57,5 @@
             </button>
         </form>
     </div>
-
-
-    <script>
-        document.getElementById("message").textContent = {{ old('description', $product->description) }};
-    </script>
-
 @endsection
 

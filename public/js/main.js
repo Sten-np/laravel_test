@@ -1,3 +1,4 @@
+
 var sidebar = document.getElementById('sidebar');
 
 function sidebarToggle() {
@@ -50,4 +51,8 @@ if (document.querySelector('.modal-wrapper'))
     document.querySelectorAll('.close-modal').forEach(btn => {
         toggleModal('remove', btn);
     });
+}
+
+function dropdown() {
+    document.getElementById('myDropdown').classList.toggle("show");
 }
