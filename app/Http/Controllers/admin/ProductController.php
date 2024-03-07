@@ -58,6 +58,7 @@ class ProductController extends Controller
         ]);
 
         $product->prices()->save($price);
+        $product = Product::with('latest_price')->findOrFail($product->id);
 
         return response()->json(['product' => $product]);
     }

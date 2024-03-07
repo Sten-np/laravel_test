@@ -58,6 +58,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 const product = response.product;
+                console.log(product);
                 const newRow = `
                 <tr data-prod-id="${product.id}">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${product.id}</td>
@@ -79,7 +80,7 @@ $(document).ready(function () {
                     </td>
                 </tr>`;
                 $('tbody').append(newRow); // Append the newly created product row to the table
-                $('#createModal').hide(); // Hide the modal
+                $('#createModal').hide();
             },
             error: function () {
                 console.log('Error creating product');
