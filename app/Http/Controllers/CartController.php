@@ -28,10 +28,10 @@ class CartController extends Controller
             Cart::add($product->id, $product->name, 1, $product->latest_price->price);
 
             // Redirect back with success message
-            return redirect()->route('cart.index')->with('success', 'Item was added to your cart');
+            return to_route()->route('cart.index')->with('success', 'Item was added to your cart');
         } else {
             // Redirect back with error message if product not found
-            return redirect()->route('cart.index')->with('error', 'Product not found');
+            return to_route('cart.index')->with('error', 'Product not found');
         }
     }
 
@@ -41,7 +41,7 @@ class CartController extends Controller
         Cart::remove($rowId);
 
         // Redirect back with success message
-        return redirect()->route('cart.index')->with('success', 'Item has been removed');
+        return to_route('cart.index')->with('success', 'Item has been removed');
     }
 
     public function updateCart(Request $request, $rowId): RedirectResponse
@@ -49,7 +49,7 @@ class CartController extends Controller
         // Update the item in the cart
         Cart::update($rowId, $request->input('quantity'));
         // Redirect back with success message
-        return redirect()->route('cart.index')->with('success', 'Cart has been updated');
+        return to_route('cart.index')->with('success', 'Cart has been updated');
     }
 
 }

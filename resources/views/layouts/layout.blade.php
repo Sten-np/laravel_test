@@ -6,9 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         .prod-card:hover {
             transform: scale(1.05);
@@ -30,8 +27,18 @@
         </div>
 
         <div>
-            <a href="{{ route('cart.index') }}" class="text-white
-            text-2xl font-bold">Cart</a>
+
+
+            <button type="button"
+                    class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <a href="{{ route('cart.index') }}">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <div
+                        class="absolute -top-5  flex items-center justify-center w-10 h-10 text-xl font-extrabold text-white bg-red-500 border-2 border-white rounded-full dark:border-gray-900">
+                        {{ Cart::content()->count() }}
+                    </div>
+                </a>
+            </button>
         </div>
 
         <div>
