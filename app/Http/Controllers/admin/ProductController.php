@@ -4,7 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Price;
 use App\Models\Product;
+use http\Env\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -22,46 +26,50 @@ class ProductController extends Controller
         $this->middleware('permission:delete products', ['only' => ['delete', 'destroy']]);
     }
 
-
     /**
      * @return View
      */
     public function index(): View
     {
-        $products = Product::paginate(10);
+        $products = Product::with('prices')->paginate(10);
         return view('admin.products.index', compact('products'));
     }
 
-    /**
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('admin.products.create');
-    }
+//    public function create(): JsonResponse
+//    {
+//        return view('admin.products.create');
+//    }
 
     /**
-     * @return RedirectResponse
+     * @return JsonResponse
      * @param ProductStoreRequest $request
      */
-    public function store(ProductStoreRequest $request): RedirectResponse
+    public function store(ProductStoreRequest $request): JsonResponse
     {
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
         $product->image = $request->image;
+
         $product->save();
 
-        return redirect()->route('products.index')->with('status', 'Product created!');
-    }
+        $price = new Price([
+            'price' => $request->price,
+        ]);
 
+        $product->prices()->save($price);
+        $product = Product::with('latest_price')->findOrFail($product->id);
+
+        return response()->json(['product' => $product]);
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -69,25 +77,42 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::with('prices')->findOrFail($id);
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductUpdateRequest $request, string $id): RedirectResponse
     {
-        //
+        $product = Product::findOrFail($id);
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $request->image,
+            'visibility' => (bool)$request->visibility, // Update visibility here
+        ]);
+
+        $price = new Price([
+            'price' => $request->price,
+        ]);
+
+        $product->prices()->save($price);
+
+        return to_route('products.index')->with('status', 'Product updated!');
     }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id): JsonResponse
     {
         $product = Product::findOrFail($id);
         $product->delete();
-        return to_route('products.index')->with('status', 'Product deleted!');
+
+        return response()->json(['status' => 'Product deleted!']);
     }
 }

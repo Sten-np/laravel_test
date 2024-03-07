@@ -1,23 +1,19 @@
-@extends('layouts.layoutadmin')
-@section('title', 'Create a new product')
+<div id="createModal" class="modal absolute top-0.5" style="display: none">
+    <div class="modal-content bg-white p-4 rounded-lg shadow-md z-10">
+        <span id="closeModal" class="absolute top-0 right-0 px-3 py-2 bg-red-500">x</span>
+        <div class="container mx-auto p-4">
+            <h1 class="text-2xl font-bold mb-4">Create a new product</h1>
+            @if($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Er is iets fout gegaan!</strong>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li><span class="block sm:inline">{{ $error }}</span></li>
+                        @endforeach
+                    </ul>
+                </div><br>
+            @endif
 
-@section('content')
-    <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Create a new product</h1>
-
-        @if($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">Er is iets fout gegaan!</strong>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li><span class="block sm:inline">{{ $error }}</span></li>
-                    @endforeach
-                </ul>
-            </div><br>
-        @endif
-
-        <form action="{{ route('products.store') }}" method="POST" class="space-y-4">
-            @csrf
 
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 font-bold mb-2">Product name</label>
@@ -49,10 +45,12 @@
                 focus:outline-none focus:shadow-outline">
             </div>
 
-            <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Create product
+            <button id="createsubmit" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                Create
             </button>
-        </form>
+            <button id="closeModal" class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-bold rounded">
+                Cancel
+            </button>
+        </div>
     </div>
-@endsection
+</div>
