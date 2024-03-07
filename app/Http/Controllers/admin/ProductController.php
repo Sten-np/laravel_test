@@ -7,6 +7,8 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Price;
 use App\Models\Product;
+use http\Env\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -33,19 +35,16 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
-    /**
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('admin.products.create');
-    }
+//    public function create(): JsonResponse
+//    {
+//        return view('admin.products.create');
+//    }
 
     /**
-     * @return RedirectResponse
+     * @return JsonResponse
      * @param ProductStoreRequest $request
      */
-    public function store(ProductStoreRequest $request): RedirectResponse
+    public function store(ProductStoreRequest $request): JsonResponse
     {
         $product = new Product();
         $product->name = $request->name;
@@ -60,7 +59,7 @@ class ProductController extends Controller
 
         $product->prices()->save($price);
 
-        return to_route('products.index')->with('status', 'Product created!');
+        return response()->json(['product' => $product]);
     }
 
     /**
@@ -108,10 +107,11 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id): JsonResponse
     {
         $product = Product::findOrFail($id);
         $product->delete();
-        return to_route('products.index')->with('status', 'Product deleted!');
+
+        return response()->json(['status' => 'Product deleted!']);
     }
 }

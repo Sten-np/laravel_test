@@ -8,18 +8,18 @@
             <div class="col-md-12">
                 <h1>Products</h1>
                 <p>Here you can manage the products of the application.</p><br>
-                <button class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                    <a href="{{ route('products.create') }}">Create a new product</a>
+                <button id="createprod" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                    Create a product
                 </button>
             </div>
-        </div><br>
+        </div>
+        <br>
 
         @if (session('status'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">Succes!</strong>
                 <span class="block sm:inline">{{ session('status') }}</span>
             </div><br>
-
         @endif
     </div><br>
     <table class="min-w-full leading-normal shadow rounded overflow-hidden">
@@ -50,7 +50,7 @@
         </thead>
         <tbody>
         @foreach ($products as $product)
-            <tr>
+            <tr data-prod-id="{{ $product->id }}">
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     {{ $product->id }}
                 </td>
@@ -70,17 +70,18 @@
                     <form method="post" action="{{ route('products.update', ['product' => $product->id]) }}">
                         @csrf
                         @method('PUT')
-                        <input type="checkbox" name="visibility"  id="visibility" value="0" {{ $product->visibility ? 'checked' : '' }}>
+                        <input type="checkbox" name="visibility" id="visibility"
+                               value="0" {{ $product->visibility ? 'checked' : '' }}>
                     </form>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="{{ route('products.show', $product->id) }}" class="text-blue-500 hover:text-blue-800">View</a>
-                    <a href="{{ route('products.edit', $product->id) }}" class="text-blue-500 hover:text-blue-800">Edit</a>
-                    <form class="inline" action="{{ route('products.destroy', $product->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500 hover:text-red-800">Delete</button>
-                    </form>
+                    <a href="{{ route('products.show', $product->id) }}"
+                       class="text-blue-500 hover:text-blue-800">View</a>
+                    <a href="{{ route('products.edit', $product->id) }}"
+                       class="text-blue-500 hover:text-blue-800">Edit</a>
+                    <button id="delete" data-prod-id="{{ $product->id }}" class="text-red-500 hover:text-red-800">
+                        Delete
+                    </button>
                 </td>
             </tr>
         @endforeach
@@ -90,13 +91,7 @@
     <div class="flex items-center justify-center mt-4">
         {{ $products->links() }}
     </div>
-
-    <script defer>
-        const input = document.getElementById('visibility');
-        const form = input.parentElement;
-        input.addEventListener('change', () => {
-            form.submit();
-        });
-    </script>
-
+    @include('admin.products.modals.create')
+    @include('admin.products.modals.delete')
+    @include('admin.products.modals.show')
 @endsection
