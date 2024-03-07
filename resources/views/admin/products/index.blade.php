@@ -41,9 +41,6 @@
                 Price
             </th>
             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Visibility
-            </th>
-            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                 Actions
             </th>
         </tr>
@@ -65,14 +62,6 @@
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     &euro; {{ $product->latest_price->price }}
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <form method="post" action="{{ route('products.update', ['product' => $product->id]) }}">
-                        @csrf
-                        @method('PUT')
-                        <input type="checkbox" name="visibility" id="visibility"
-                               value="0" {{ $product->visibility ? 'checked' : '' }}>
-                    </form>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <a href="{{ route('products.show', $product->id) }}"

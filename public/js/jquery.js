@@ -53,7 +53,7 @@ $(document).ready(function () {
                 description: $('#description').val(),
                 price: $('#price').val(),
                 image: $('#image').val(),
-                category: $('#category').val(),
+                visibility: $('#visibility').val(),
                 _token: $('meta[name="csrf-token"]').attr('content')
             },
             success: function (response) {
@@ -66,13 +66,6 @@ $(document).ready(function () {
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${product.image}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${product.description}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">&euro; ${product.latest_price.price}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <form method="post" action="{{ route('products.update', ['product' => $product->id]) }}">
-                            @csrf
-                            @method('PUT')
-                            <input type="checkbox" name="visibility" id="visibility" value="0" ${product.visibility ? 'checked' : ''}>
-                        </form>
-                    </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <a href="{{ route('products.show', ${product.id}) }}" class="text-blue-500 hover:text-blue-800">View</a>
                         <a href="{{ route('products.edit', ${product.id}) }}" class="text-blue-500 hover:text-blue-800">Edit</a>

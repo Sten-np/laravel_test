@@ -1,6 +1,6 @@
-<div id="createModal" class="modal" style="display: none">
+<div id="createModal" class="modal absolute top-0.5" style="display: none">
     <div class="modal-content bg-white p-4 rounded-lg shadow-md z-10">
-        <button id="closeModal">X</button>
+        <span id="closeModal" class="absolute top-0 right-0 px-3 py-2 bg-red-500">x</span>
         <div class="container mx-auto p-4">
             <h1 class="text-2xl font-bold mb-4">Create a new product</h1>
             @if($errors->any())
@@ -45,7 +45,12 @@
                 focus:outline-none focus:shadow-outline">
             </div>
 
-            <button id="createsubmit">create</button>
+            <button id="createsubmit" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                Create
+            </button>
+            <button id="closeModal" class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-bold rounded">
+                Cancel
+            </button>
         </div>
     </div>
 </div>
