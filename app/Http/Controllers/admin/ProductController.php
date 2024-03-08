@@ -35,10 +35,6 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
-//    public function create(): JsonResponse
-//    {
-//        return view('admin.products.create');
-//    }
 
     /**
      * @return JsonResponse
@@ -64,12 +60,13 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @param string $id
+     * @return JsonResponse
      */
-    public function show(string $id)
+    public function show(string $id): jsonResponse
     {
-        $product = Product::findOrFail($id);
-        return view('admin.products.show', compact('product'));
+        $product = Product::with('latest_price')->findOrFail($id);
+        return response()->json(['product' => $product]);
     }
 
     /**
@@ -92,7 +89,6 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $request->image,
-            'visibility' => (bool)$request->visibility, // Update visibility here
         ]);
 
         $price = new Price([

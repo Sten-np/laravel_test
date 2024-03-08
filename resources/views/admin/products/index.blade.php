@@ -64,10 +64,9 @@
                     &euro; {{ $product->latest_price->price }}
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="{{ route('products.show', $product->id) }}"
-                       class="text-blue-500 hover:text-blue-800">View</a>
-                    <a href="{{ route('products.edit', $product->id) }}"
-                       class="text-blue-500 hover:text-blue-800">Edit</a>
+                    <button id="showandeditproduct" data-prod-id="{{ $product->id }}">
+                        Details and Edit
+                    </button>
                     <button id="delete" data-prod-id="{{ $product->id }}" class="text-red-500 hover:text-red-800">
                         Delete
                     </button>
@@ -82,5 +81,5 @@
     </div>
     @include('admin.products.modals.create')
     @include('admin.products.modals.delete')
-    @include('admin.products.modals.show')
+    @include('admin.products.modals.showandedit')
 @endsection

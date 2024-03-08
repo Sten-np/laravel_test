@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,7 +18,7 @@ class CartController extends Controller
         return view('general.cart.index', compact('subtotal', 'totalWithTax'));
     }
 
-    public function addToCart(Request $request): RedirectResponse
+    public function addToCart(Request $request): JsonResponse
     {
         // Fetch the product details from the request, you'll need to adjust this based on your application
         $productId = $request->post('id');
@@ -27,21 +28,27 @@ class CartController extends Controller
             // Add the product to the cart
             Cart::add($product->id, $product->name, 1, $product->latest_price->price);
 
-            // Redirect back with success message
-            return to_route('cart.index')->with('success', 'Item was added to your cart');
+            if (Cart::count() > 0) {
+                // Redirect back with success message
+                return response()->json(['success' => 'Product has been added to cart']);
+            } else {
+                // Redirect back with error message if product not found
+                return response()->json(['error' => 'Product not found']);
+            }
+
         } else {
             // Redirect back with error message if product not found
-            return to_route('cart.index')->with('error', 'Product not found');
+            return response()->json(['error' => 'Product not found']);
         }
     }
 
-    public function removeFromCart($rowId): RedirectResponse
+    public function removeFromCart(Request $request, string $id): JsonResponse
     {
         // Remove the item from the cart
-        Cart::remove($rowId);
+        Cart::remove($id, $request->input($id));
 
         // Redirect back with success message
-        return to_route('cart.index')->with('success', 'Item has been removed');
+        return response()->json(['success' => 'Product has been removed from cart']);
     }
 
     public function updateCart(Request $request, $rowId): RedirectResponse
@@ -50,6 +57,13 @@ class CartController extends Controller
         Cart::update($rowId, $request->input('quantity'));
         // Redirect back with success message
         return to_route('cart.index')->with('success', 'Cart has been updated');
+    }
+
+    public function getCartCount(): JsonResponse
+    {
+        // Get the cart count
+        $count = Cart::count();
+        return response()->json(['count' => $count]);
     }
 
 }

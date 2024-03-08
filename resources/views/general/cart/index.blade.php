@@ -3,15 +3,7 @@
 @section('title', 'Shopping Cart')
 
 @section('content')
-    @if(session('success'))
-        <div class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md">
-            {{ session('success') }}
-        </div>
-    @elseif(session('error'))
-        <div class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md">
-            {{ session('error') }}
-        </div>
-    @endif
+    <span id="message"></span>
     <body class="bg-gray-100">
     <div class="container mx-auto mt-10">
         <div class="flex shadow-md my-10">
@@ -22,7 +14,7 @@
                 @endif
 
                 @foreach(Cart::content() as $item)
-                    <div>
+                    <div class="items bg-gray-100 p-3">
                         <strong>{{ $item->name }}</strong>
                         <p>Price: &euro; {{ $item->price }}</p>
                         <form id="qtyform" action="{{ url('/cart/update/' . $item->rowId) }}" method="post">
@@ -30,13 +22,9 @@
                             @method('PUT')
                             <label for="qty"></label><input type="number" min="1" max="9" name="quantity" id="qty" value="{{ $item->qty }}" data-row-id="{{ $item->rowId }}">
                         </form>
-                        <form action="{{ route('cart.remove', ['rowId' => $item->rowId]) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</button>
-                        </form>
+                        <button data-prod-id="{{ $item->rowId }}"  class="removeItem font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</button>
                     </div>
-                    <span>---------------------------------------------------------------</span>
+
                 @endforeach
             </div>
 

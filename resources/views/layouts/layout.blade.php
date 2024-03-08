@@ -28,30 +28,18 @@
             text-2xl font-bold">Products</a>
         </div>
 
+
         <div>
-
-
             <button type="button"
                     class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <a href="{{ route('cart.index') }}">
                     <span class="material-symbols-outlined">shopping_cart</span>
-                    <div
+                    <div id="cartCount"
                         class="absolute -top-5  flex items-center justify-center w-10 h-10 text-xl font-extrabold text-white bg-red-500 border-2 border-white rounded-full dark:border-gray-900">
                         {{ Cart::content()->count() }}
                     </div>
                 </a>
             </button>
-        </div>
-
-        <div>
-            <form action="{{ route('open.products.search', ['term' => "minecraft"]) }}" method="post">
-                @csrf
-                <input type="text" name="search" placeholder="Search for products" class="rounded-lg p-2">
-                <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Search
-                </button>
-            </form>
         </div>
 
         @hasrole('admin')
@@ -109,4 +97,5 @@
 </body>
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/cart.js') }}"></script>
 </html>

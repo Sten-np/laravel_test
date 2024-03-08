@@ -7,6 +7,8 @@
         <h1 class="text-4xl font-bold mb-4">Welcome to Sten's GameShop</h1>
         <p class="text-xl">We have a wide range of games and consoles available for purchase. Check out our products
             page to see what we have in stock.</p>
+
+        <span id="message"></span>
     </div>
 
 
@@ -26,17 +28,14 @@
                                         <h2 class="font-bold text-xl mb-2">{{ $product->name }}</h2>
                                         <p class="text-gray-700">&euro; {{ $product->latest_price->price }}</p>
                                     </div>
-                                        <form action="{{ route('cart.add') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $product->id }}">
-                                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
-                                                <span class="material-symbols-outlined">shopping_cart</span>
-                                            </button>
-                                        </form>
                                 </div>
                             </div>
                         </div>
                     </a>
+                    <button
+                        class="addToCart bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md" data-prod-id="{{ $product->id }}">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                    </button>
                 </div>
             @endforeach
         </div>

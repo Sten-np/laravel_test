@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        $products = Product::with('prices')->where('visibility', true)->paginate(10);
+        $products = Product::with('prices')->paginate(10);
         return view('open.products.index', compact('products'));
     }
 
