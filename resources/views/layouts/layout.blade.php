@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
     <style>
@@ -95,7 +94,11 @@
     <div class="flex flex-1 mx-auto">&copy; My Design</div>
 </footer>
 </body>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
-<script src="{{ asset('js/jquery.js') }}"></script>
-<script src="{{ asset('js/cart.js') }}"></script>
+<script>
+    function dropdown() {
+        document.getElementById('myDropdown').classList.toggle("show");
+    }
+</script>
 </html>

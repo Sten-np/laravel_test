@@ -29,13 +29,4 @@ class ProductController extends Controller
         return view('open.products.show', compact('product'));
     }
 
-    /**
-     * @param string $term
-     */
-    public function search(string $term)
-    {
-        $products = Product::search($term)->get();
-        return $products;
-    }
-
 }

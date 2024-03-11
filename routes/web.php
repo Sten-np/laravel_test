@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-    Route::resource('admin/products', admin\ProductController::class);
+    Route::resource('admin/product', admin\ProductController::class);
     Route::resource('admin/users', admin\UserController::class);
 });
 

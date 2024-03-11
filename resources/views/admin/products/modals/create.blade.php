@@ -1,4 +1,12 @@
-<div id="createModal" class="modal absolute top-0.5" style="display: none">
+<div id="createModal" class="modal absolute top-0.5" style="
+position: fixed;  /* Ensures modal stays in place */
+    top: 25%;           /* Places the modal on top of the page */
+    margin: 0 5rem 0 5rem;       /* Places the modal on the left edge of the page */
+  width: 100%;      /* Optional: Stretches the modal to cover the entire width */
+  height: 100%;     /* Optional: Stretches the modal to cover the entire height */
+  z-index: 9999;    /* Places the modal on top of other elements */
+  display: none;
+">
     <div class="modal-content bg-white p-4 rounded-lg shadow-md z-10">
         <span id="closeModal" class="absolute top-0 right-0 px-3 py-2 bg-red-500">x</span>
         <div class="container mx-auto p-4">
