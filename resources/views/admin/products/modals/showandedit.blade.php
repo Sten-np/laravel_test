@@ -2,7 +2,7 @@
     <div class="modal-content bg-white p-4 rounded-lg shadow-md z-10">
         <span id="closeShowModal" class="absolute top-0 right-0 px-3 py-2 bg-red-500">x</span>
         <div class="container mx-auto p-4">
-            <h1 class="text-2xl font-bold mb-4">Edit and Details {{ $product->name }}</h1>
+            <h1 class="text-2xl font-bold mb-4">Edit and Details</h1>
 
             @if($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">

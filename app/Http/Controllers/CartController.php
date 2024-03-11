@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CartController extends Controller
 {
@@ -20,7 +20,6 @@ class CartController extends Controller
 
     public function addToCart(Request $request): JsonResponse
     {
-        // Fetch the product details from the request, you'll need to adjust this based on your application
         $productId = $request->post('id');
         $product = Product::find($productId);
 
@@ -42,28 +41,38 @@ class CartController extends Controller
         }
     }
 
-    public function removeFromCart(Request $request, string $id): JsonResponse
+    public function removeFromCart(Request $request): JsonResponse
     {
-        // Remove the item from the cart
-        Cart::remove($id, $request->input($id));
-
-        // Redirect back with success message
+        Cart::remove($request->post('id'));
         return response()->json(['success' => 'Product has been removed from cart']);
-    }
-
-    public function updateCart(Request $request, $rowId): RedirectResponse
-    {
-        // Update the item in the cart
-        Cart::update($rowId, $request->input('quantity'));
-        // Redirect back with success message
-        return to_route('cart.index')->with('success', 'Cart has been updated');
     }
 
     public function getCartCount(): JsonResponse
     {
-        // Get the cart count
         $count = Cart::count();
         return response()->json(['count' => $count]);
+    }
+
+    public function updateCart()
+    {
+        $rowId = request('rowId');
+        $qty = request('qty');
+        Cart::update($rowId, $qty);
+        return back();
+    }
+
+    public function getCartPrice(): JsonResponse
+    {
+        $subtotal = Cart::subtotal();
+        $totalWithTax = Cart::total();
+        return response()->json(['subtotal' => $subtotal, 'totalWithTax' => $totalWithTax]);
+    }
+
+    public function checkout()
+    {
+        $pdf = PDF::loadView('pdf.cart_invoice');
+        $pdf->setPaper('a4', 'landscape');
+        return $pdf->stream('invoice.pdf');
     }
 
 }

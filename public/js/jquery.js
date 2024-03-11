@@ -70,13 +70,18 @@ $(document).ready(function () {
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${product.description}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">&euro; ${product.latest_price.price}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <a href="{{ route('products.show', ${product.id}) }}" class="text-blue-500 hover:text-blue-800">View</a>
-                        <a href="{{ route('products.edit', ${product.id}) }}" class="text-blue-500 hover:text-blue-800">Edit</a>
+                        <button id="showandeditproduct" data-prod-id="{{ $product->id }}">
+                        Details and Edit
+                        </button>
                         <button id="delete" data-prod-id="${product.id}" class="text-red-500 hover:text-red-800">Delete</button>
                     </td>
                 </tr>`;
                 $('tbody').append(newRow); // Append the newly created product row to the table
                 $('#createModal').hide();
+
+                $.getScript('/admin/products/modals/create');
+                $.getScript('/admin/products/modals/delete');
+                $.getScript('/admin/products/modals/showandedit');
             },
             error: function () {
                 console.log('Error creating product');

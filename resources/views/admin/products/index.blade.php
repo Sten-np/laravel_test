@@ -81,5 +81,10 @@
     </div>
     @include('admin.products.modals.create')
     @include('admin.products.modals.delete')
-    @include('admin.products.modals.showandedit')
+
+    @if (\App\Models\Product::count()>0)
+        @include('admin.products.modals.showandedit')
+    @endif
+
+
 @endsection

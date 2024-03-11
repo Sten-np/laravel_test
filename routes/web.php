@@ -13,6 +13,8 @@ Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add')
 Route::delete('/cart/remove/{rowId}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 Route::put('/cart/update/{rowId}', [CartController::class, 'updateCart'])->name('cart.update');
 Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
+Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/cart/price', [CartController::class, 'getCartPrice'])->name('cart.price');
 
 Route::get('/products', [open\ProductController::class, 'index'])->name('open.products.index');
 Route::get('/products/{product}', [open\ProductController::class, 'show'])->name('open.products.show');

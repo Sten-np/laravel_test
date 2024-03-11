@@ -36,7 +36,7 @@
                     <span class="material-symbols-outlined">shopping_cart</span>
                     <div id="cartCount"
                         class="absolute -top-5  flex items-center justify-center w-10 h-10 text-xl font-extrabold text-white bg-red-500 border-2 border-white rounded-full dark:border-gray-900">
-                        {{ Cart::content()->count() }}
+                        {{ Cart::count() }}
                     </div>
                 </a>
             </button>
