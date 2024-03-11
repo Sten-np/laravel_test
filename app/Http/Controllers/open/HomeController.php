@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $newestProducts = Product::orderBy('created_at', 'desc')->where('visibility', true)->take(3)->get();
+        $newestProducts = Product::orderBy('created_at', 'desc')->take(3)->get();
         return view('general.home', compact('newestProducts'));
     }
 }

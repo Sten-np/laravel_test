@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>@yield('title')</title>
+    <title>@yield('Admin Panel')</title>
 </head>
 
 <body>
@@ -23,7 +22,7 @@
         <header class="bg-nav">
             <div class="flex justify-between">
                 <div class="p-1 mx-3 inline-flex items-center">
-                    <h1 class="text-white p-2">Logo</h1>
+                    <h1 class="text-white p-2">Administrator</h1>
                 </div>
                 <div class="p-1 flex flex-row items-center">
                     <p>{{ Auth()->user()->name }}</p>
@@ -55,7 +54,7 @@
                         <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                     </li>
                     <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300">
-                        <a href="{{ route('products.index') }}">Products</a>
+                        <a href="{{ route('product.index') }}">Products</a>
                     </li>
                     <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300">
                         <a href="{{ route('users.index') }}">Users</a>
@@ -73,6 +72,6 @@
 
 </div>
 </body>
-<script defer src="{{ asset('js/main.js') }}"></script>
-<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 </html>

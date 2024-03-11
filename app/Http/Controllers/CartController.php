@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CartController extends Controller
 {
@@ -17,9 +18,8 @@ class CartController extends Controller
         return view('general.cart.index', compact('subtotal', 'totalWithTax'));
     }
 
-    public function addToCart(Request $request): RedirectResponse
+    public function addToCart(Request $request): JsonResponse
     {
-        // Fetch the product details from the request, you'll need to adjust this based on your application
         $productId = $request->post('id');
         $product = Product::find($productId);
 
@@ -27,29 +27,52 @@ class CartController extends Controller
             // Add the product to the cart
             Cart::add($product->id, $product->name, 1, $product->latest_price->price);
 
-            // Redirect back with success message
-            return to_route('cart.index')->with('success', 'Item was added to your cart');
+            if (Cart::count() > 0) {
+                // Redirect back with success message
+                return response()->json(['success' => 'Product has been added to cart']);
+            } else {
+                // Redirect back with error message if product not found
+                return response()->json(['error' => 'Product not found']);
+            }
+
         } else {
             // Redirect back with error message if product not found
-            return to_route('cart.index')->with('error', 'Product not found');
+            return response()->json(['error' => 'Product not found']);
         }
     }
 
-    public function removeFromCart($rowId): RedirectResponse
+    public function removeFromCart(Request $request): JsonResponse
     {
-        // Remove the item from the cart
-        Cart::remove($rowId);
-
-        // Redirect back with success message
-        return to_route('cart.index')->with('success', 'Item has been removed');
+        Cart::remove($request->post('id'));
+        return response()->json(['success' => 'Product has been removed from cart']);
     }
 
-    public function updateCart(Request $request, $rowId): RedirectResponse
+    public function getCartCount(): JsonResponse
     {
-        // Update the item in the cart
-        Cart::update($rowId, $request->input('quantity'));
-        // Redirect back with success message
-        return to_route('cart.index')->with('success', 'Cart has been updated');
+        $count = Cart::count();
+        return response()->json(['count' => $count]);
+    }
+
+    public function updateCart()
+    {
+        $rowId = request('rowId');
+        $qty = request('qty');
+        Cart::update($rowId, $qty);
+        return back();
+    }
+
+    public function getCartPrice(): JsonResponse
+    {
+        $subtotal = Cart::subtotal();
+        $totalWithTax = Cart::total();
+        return response()->json(['subtotal' => $subtotal, 'totalWithTax' => $totalWithTax]);
+    }
+
+    public function checkout()
+    {
+        $pdf = PDF::loadView('pdf.cart_invoice');
+        $pdf->setPaper('a4', 'landscape');
+        return $pdf->stream('invoice.pdf');
     }
 
 }

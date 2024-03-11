@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "prod": "mix --production"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -16,6 +17,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "draggable": "^4.2.0",
         "jquery": "^3.7.1",
         "laravel-mix": "^6.0.49"
     }

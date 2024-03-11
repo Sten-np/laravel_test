@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        $products = Product::with('prices')->where('visibility', true)->paginate(10);
+        $products = Product::with('prices')->paginate(10);
         return view('open.products.index', compact('products'));
     }
 
@@ -27,15 +27,6 @@ class ProductController extends Controller
     {
         $product = Product::with('prices')->find($product->id);
         return view('open.products.show', compact('product'));
-    }
-
-    /**
-     * @param string $term
-     */
-    public function search(string $term)
-    {
-        $products = Product::search($term)->get();
-        return $products;
     }
 
 }
