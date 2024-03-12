@@ -3,22 +3,44 @@
 @section('title',  $product->name)
 
 @section('content')
-    <div class="container mx-auto p-4">
+    <div class="flex">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div >
-                <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-75 h-75 object-cover rounded-lg">
-            </div>
+        <table class="table-auto w-full">
             <div>
-                <span id="message"></span>
-                <h1 class="text-4xl font-bold mb-4">{{ $product->name }}</h1>
-                <p class="text-xl">&euro; {{ $product->latest_price->price }}</p>
-                <p>{{ $product->description }}</p>
-                <button
-                    class="addToCart bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md" data-prod-id="{{ $product->id }}">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                </button>
+                <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
+                     class="min-w-75 min-h-75 w-75 h-75 object-cover rounded-lg">
             </div>
-        </div>
+            <thead>
+            <tr class="bg-gray-100 text-gray-600 uppercase text-xs leading-tight">
+                <th class="px-6 py-3 text-left">Feature</th>
+                <th class="px-6 py-3 text-left">Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="border-gray-200 text-gray-700">
+                <td class="px-6 py-4">Product Name</td>
+                <td class="px-6 py-4">{{ $product->name }}</td>
+            </tr>
+            <tr class="border-gray-200 text-gray-700">
+                <td class="px-6 py-4">Description</td>
+                <td class="px-6 py-4">{{ $product->description }}</td>
+            </tr>
+            <tr class="border-gray-200 text-gray-700">
+                <td class="px-6 py-4">Price</td>
+                <td class="px-6 py-4">&euro; {{ $product->latest_price->price }}</td>
+            </tr>
+            </tbody>
+
+
+        </table>
+
+
+
     </div>
+
+    <br><button
+        class="addToCart bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md" data-prod-id="{{ $product->id }}">
+        <span class="material-symbols-outlined">shopping_cart</span>
+    </button>
+
 @endsection

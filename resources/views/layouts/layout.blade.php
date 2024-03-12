@@ -29,16 +29,18 @@
 
 
         <div>
-            <button type="button"
-                    class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <a href="{{ route('cart.index') }}">
+            <a href="{{ route('cart.index') }}">
+                <button type="button"
+                        class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+
                     <span class="material-symbols-outlined">shopping_cart</span>
                     <div id="cartCount"
-                        class="absolute -top-5  flex items-center justify-center w-10 h-10 text-xl font-extrabold text-white bg-red-500 border-2 border-white rounded-full dark:border-gray-900">
+                         class="absolute -top-5  flex items-center justify-center w-10 h-10 text-xl font-extrabold text-white bg-red-500 border-2 border-white rounded-full dark:border-gray-900">
                         {{ Cart::count() }}
                     </div>
-                </a>
-            </button>
+
+                </button>
+            </a>
         </div>
 
         @hasrole('admin')

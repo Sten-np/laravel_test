@@ -12,13 +12,9 @@ class Product extends Model
 
     protected $fillable = ['name', 'description', 'image'];
 
-    public function searchableAs()
+    public function categories()
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-        ];
+        return $this->hasOne(Category::class);
     }
 
     public function prices()

@@ -57,6 +57,9 @@
                         <a href="{{ route('product.index') }}">Products</a>
                     </li>
                     <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300">
+                        <a href="{{ route('category.index') }}">Categories</a>
+                    </li>
+                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white hover:bg-blue-300">
                         <a href="{{ route('users.index') }}">Users</a>
                     </li>
                 </ul>
@@ -74,4 +77,5 @@
 </body>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/categories.js') }}"></script>
 </html>
